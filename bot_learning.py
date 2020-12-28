@@ -2,6 +2,10 @@ import json
 import os
 import dialogflow_v2 as dialogflow
 import google.api_core.exceptions as google_ex
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
 QUESTIONS_FILE_NAME = 'example_questions.json'

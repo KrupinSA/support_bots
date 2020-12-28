@@ -2,6 +2,10 @@ import vk_api as vk
 import random
 from vk_api.longpoll import VkLongPoll, VkEventType
 import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 VK_ID = os.getenv('VK_ID')
 DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
