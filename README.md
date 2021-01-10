@@ -34,5 +34,9 @@ export DEVMAN_TOKEN="....."
 Launch on Linux(Python 3) or Windows:
 
 ```sh
-$ python main.py
+$ python telegram_bot.py
+```
+or/and
+```sh
+$ python vk_bot.py
 ```
