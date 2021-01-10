@@ -1,4 +1,5 @@
-# support_bots
+# support bots 
+VK bot                            Telegram bot
 
 ![VK dialog Demo](demo/vk.gif)    ![Telegram dialog Demo](demo/Telegram.gif)
 
