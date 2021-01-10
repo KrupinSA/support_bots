@@ -22,8 +22,6 @@ pip install -r requirements.txt
 export TELERAM_TOKEN="......"
 
 export TELEGRAM_CHAT_ID="......"
-
-export DEVMAN_TOKEN="....."
 ```
 #### How to get
 
