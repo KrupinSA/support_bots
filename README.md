@@ -1,7 +1,7 @@
 # support bots 
 VK bot                            Telegram bot
 
-![VK dialog Demo](demo/vk.gif)    ![Telegram dialog Demo](demo/Telegram.gif)
+[![VK dialog Demo](demo/vk.gif)]    [![Telegram dialog Demo](demo/Telegram.gif)]
 
 
 ## Environment
