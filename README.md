@@ -3,6 +3,7 @@
 |--------|-------------|
 | ![VK dialog Demo](demo/vk.gif) | ![Telegram dialog Demo](demo/Telegram.gif) |
 
+These bots will help you with technical support. When there are many user questions and they are of the same type, entrust the answers to bots.
 
 ## Environment
 
