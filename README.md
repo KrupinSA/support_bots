@@ -26,10 +26,17 @@ export TELERAM_TOKEN="......"
 
 export TELEGRAM_CHAT_ID="......"
 
+export DIAG_BOT_ID="......."
+
+export GOOGLE_APPLICATION_CREDENTIALS= 'path to file *json'
+
+export VK_ID="......"
+
 ```
 #### How to get
 
 * Follow the link for instructions on how to get a telegram token. https://core.telegram.org/bots#6-botfather
+
 
 ## Run
 
