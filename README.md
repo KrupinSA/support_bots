@@ -5,6 +5,8 @@
 
 These bots will help you with technical support. When there are many user questions and they are of the same type, entrust the answers to bots.
 
+For text recognition and formation of responses, the DialogFlow agent from Google is used.
+
 ## Environment
 
 ### Requirements
@@ -23,6 +25,7 @@ pip install -r requirements.txt
 export TELERAM_TOKEN="......"
 
 export TELEGRAM_CHAT_ID="......"
+
 ```
 #### How to get
 
