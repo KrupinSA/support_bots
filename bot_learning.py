@@ -5,8 +5,6 @@ import google.api_core.exceptions as google_ex
 from dotenv import load_dotenv
 
 
-load_dotenv()
-
 DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
 QUESTIONS_FILE_NAME = 'example_questions.json'
 
@@ -19,8 +17,7 @@ def get_questions(questions_file_name):
 
 def create_intent(questions, intent_name):
     intent = {
-        'display_name':
-        intent_name,
+        'display_name': intent_name,
         'messages': [
             {
                 'text': {
@@ -45,10 +42,12 @@ def create_intent(questions, intent_name):
 
 
 def main():
+
+    load_dotenv()
     questions = get_questions(QUESTIONS_FILE_NAME)
-    for quest in questions:
+    for question in questions:
         try:
-            intent = create_intent(questions, quest)
+            intent = create_intent(questions, question)
             intent_clt = dialogflow.IntentsClient()
             parent = intent_clt.project_agent_path(DIAG_BOT_ID)
             intent_clt.create_intent(parent, intent)
