@@ -4,39 +4,29 @@ import dialogflow_v2 as dialogflow
 import google.api_core.exceptions as google_ex
 from dotenv import load_dotenv
 
-
-DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
-QUESTIONS_FILE_NAME = 'example_questions.json'
+INTENTS_FILE_NAME = 'example_questions.json'
 
 
-def get_questions(questions_file_name):
-    with open(questions_file_name) as questions_file:
-        questions = json.load(questions_file)
-    return questions
+def get_intens(intents_file_name):
+    with open(intents_file_name) as intents_file:
+        intents = json.load(intents_file)
+    return intents
 
 
-def create_intent(questions, intent_name):
+def create_dialog_flow_intent(intent_name, intent_content):
     intent = {
         'display_name': intent_name,
         'messages': [
             {
                 'text': {
                     'text': [
-                        questions[intent_name]['answer'],
+                        intent_content['answer'],
                     ],
                 },
             },
         ],
-        'training_phrases': [],
+        'training_phrases': [{"parts": [{"text": phrases}]} for phrases in intent_content['questions']]
     }
-    for question in questions[intent_name]['questions']:
-        cur_quest = {
-            'parts': [
-                {'text': question,},
-            ],
-        }
-    
-        intent['training_phrases'].append(cur_quest)
     return intent
 
 
@@ -44,13 +34,15 @@ def create_intent(questions, intent_name):
 def main():
 
     load_dotenv()
-    questions = get_questions(QUESTIONS_FILE_NAME)
-    for question in questions:
+    DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
+
+    intents = get_intens(INTENTS_FILE_NAME)
+    for intent_name, intent_content in intents.items():
         try:
-            intent = create_intent(questions, question)
+            dialog_flow_intent = create_dialog_flow_intent(intent_name, intent_content)
             intent_clt = dialogflow.IntentsClient()
             parent = intent_clt.project_agent_path(DIAG_BOT_ID)
-            intent_clt.create_intent(parent, intent)
+            intent_clt.create_intent(parent, dialog_flow_intent)
         except google_ex.InvalidArgument:
             pass
         

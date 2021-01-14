@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 import dialogflow_v2 as dialogflow
 from telegram_handlers import TelegramLogsHandler
 
-
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 DIALOG_FLOW_SESSION = f'tg-{TELEGRAM_TOKEN}'
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
@@ -40,7 +39,7 @@ def error_handler(bot, update, err_mess):
 def main():
 
     load_dotenv()
-
+    
     bot_message_format="%(asctime)s:[%(name)s]%(filename)s.%(funcName)s:%(levelname)s:%(message)s"
     formatter = logging.Formatter(bot_message_format)
     main_logger.setLevel(logging.WARNING)
