@@ -5,19 +5,21 @@ from dotenv import load_dotenv
 import dialogflow_v2 as dialogflow
 from telegram_handlers import TelegramLogsHandler
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
-DIALOG_FLOW_SESSION = f'tg-{TELEGRAM_CHAT_ID}'
-DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
-GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+
+TELEGRAM_TOKEN = ""
+TELEGRAM_CHAT_ID = ""
+DIAG_BOT_ID = ""
+GOOGLE_APPLICATION_CREDENTIALS = ""
 LANG = 'en_US'
 
 main_logger = logging.getLogger(__name__)
 
 def detect_intent_texts(bot, update):
+    dialog_flow_session = update.message['from_user']['id']
+    dialog_flow_session = f'tg-{dialog_flow_session}'
+    
     session_client = dialogflow.SessionsClient()
-
-    session = session_client.session_path(DIAG_BOT_ID, DIALOG_FLOW_SESSION)
+    session = session_client.session_path(DIAG_BOT_ID, dialog_flow_session)
 
     text_input = dialogflow.types.TextInput(
             text=update.message.text, language_code=LANG)
@@ -37,8 +39,16 @@ def error_handler(bot, update, err_mess):
     main_logger.warning(f'Update {update} caused error {err_mess}')
 
 def main():
-
+    
     load_dotenv()
+    global TELEGRAM_TOKEN
+    TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+    global TELEGRAM_CHAT_ID
+    TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+    global DIAG_BOT_ID
+    DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
+    global GOOGLE_APPLICATION_CREDENTIALS
+    GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
     
     bot_message_format="%(asctime)s:[%(name)s]%(filename)s.%(funcName)s:%(levelname)s:%(message)s"
     formatter = logging.Formatter(bot_message_format)

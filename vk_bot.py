@@ -10,21 +10,22 @@ from telegram_handlers import TelegramLogsHandler
 import logging
 
 
-VK_ID = os.getenv('VK_ID')
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
-DIALOG_FLOW_SESSION = f'vk-{TELEGRAM_CHAT_ID}'
-DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
-GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+VK_ID = ""
+TELEGRAM_TOKEN = ""
+TELEGRAM_CHAT_ID = ""
+DIAG_BOT_ID = ""
+GOOGLE_APPLICATION_CREDENTIALS = ""
 LANG = 'en_US'
 
 main_logger = logging.getLogger(__name__)
 
 
 def detect_intent_texts(event, vk_api):
-    session_client = dialogflow.SessionsClient()
 
-    session = session_client.session_path(DIAG_BOT_ID, DIALOG_FLOW_SESSION)
+    dialog_flow_session = event.user_id
+    dialog_flow_session = f'vk-{dialog_flow_session}'
+    session_client = dialogflow.SessionsClient()
+    session = session_client.session_path(DIAG_BOT_ID, dialog_flow_session)
 
     text_input = dialogflow.types.TextInput(
             text=event.text, language_code=LANG)
@@ -43,6 +44,17 @@ def detect_intent_texts(event, vk_api):
 def main():
 
     load_dotenv()
+    global VK_ID
+    VK_ID = os.getenv('VK_ID')
+    global TELEGRAM_TOKEN
+    TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+    global TELEGRAM_CHAT_ID
+    TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+    global DIAG_BOT_ID
+    DIAG_BOT_ID = os.getenv("DIAG_BOT_ID")
+    global GOOGLE_APPLICATION_CREDENTIALS
+    GOOGLE_APPLICATION_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+    
     updater = Updater(token=TELEGRAM_TOKEN)
     dispatcher = updater.dispatcher
     telegram_handler = TelegramLogsHandler(dispatcher.bot, TELEGRAM_CHAT_ID)
